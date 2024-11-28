@@ -9,3 +9,13 @@ body {
     font-family: "Poppins", system-ui, sans-serif;
 }
 
+.animated-button {
+    cursor: pointer;
+    animation-duration: 45s;
+}
+
+.animated-arrow {
+    cursor: pointer;
+    animation-duration: 18s;
+    animation-direction: reverse;
+}
