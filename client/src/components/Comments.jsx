@@ -1,8 +1,10 @@
 import axios from "axios";
 import Comment from "./Comment";
+import ProfileImage from "./ProfileImage"; // Import the ProfileImage component
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useAuth, useUser } from "@clerk/clerk-react";
 import { toast } from "react-toastify";
+import { useEffect } from "react";
 
 const fetchComments = async (postId) => {
   const res = await axios.get(
@@ -14,6 +16,30 @@ const fetchComments = async (postId) => {
 const Comments = ({ postId }) => {
   const { user } = useUser();
   const { getToken } = useAuth();
+  console.log("line 17, user:", user?.imageUrl);
+
+  useEffect(() => {
+    const syncUserImage = async () => {
+      if (user?.imageUrl) {
+        try {
+          const token = await getToken();
+          await axios.patch(
+            `${import.meta.env.VITE_API_URL}/users/profile`,
+            { imageUrl: user.imageUrl },
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+        } catch (error) {
+          console.error("Failed to sync user image:", error);
+        }
+      }
+    };
+
+    syncUserImage();
+  }, [user?.imageUrl, getToken]);
 
   const { isPending, error, data } = useQuery({
     queryKey: ["comments", postId],
@@ -83,8 +109,8 @@ const Comments = ({ postId }) => {
                 desc: `${mutation.variables.desc} (Sending...)`,
                 createdAt: new Date(),
                 user: {
-                  img: user.imageUrl,
-                  username: user.username,
+                  img: <ProfileImage src={user?.imageUrl} />, // Use the ProfileImage component
+                  username: user?.username,
                 },
               }}
             />

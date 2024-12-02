@@ -9,7 +9,7 @@ export const getUserSavedPosts = async (req, res) => {
 
   const user = await User.findOne({ clerkUserId });
 
-  res.status(200).json(user?.savedPosts);
+  res.status(200).json(user.savedPosts);
 };
 
 export const savePost = async (req, res) => {
@@ -35,4 +35,33 @@ export const savePost = async (req, res) => {
   }
 
   res.status(200).json(isSaved ? "Post unsaved" : "Post saved");
+};
+
+export const updateUserProfile = async (req, res) => {
+  try {
+    const clerkUserId = req.auth.userId;
+    if (!clerkUserId) {
+      return res.status(401).json("Not authenticated!");
+    }
+
+    const { imageUrl } = req.body;
+    if (!imageUrl) {
+      return res.status(400).json("Image URL is required");
+    }
+
+    const user = await User.findOneAndUpdate(
+      { clerkUserId },
+      { img: imageUrl },
+      { new: true }
+    );
+
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
+
+    res.status(200).json(user);
+  } catch (error) {
+    console.error('Error updating user profile:', error);
+    res.status(500).json(error.message || "Something went wrong!");
+  }
 };
