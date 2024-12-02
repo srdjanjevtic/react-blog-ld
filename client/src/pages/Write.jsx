@@ -1,5 +1,6 @@
 import { useAuth, useUser } from "@clerk/clerk-react";
 import "react-quill-new/dist/quill.snow.css";
+import "../styles/quill.css";
 import ReactQuill from "react-quill-new";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
@@ -76,24 +77,24 @@ const Write = () => {
       <h1 className="text-cl font-light">Create a New Post</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-6 flex-1 mb-6">
         <Upload type="image" setProgress={setProgress} setData={setCover}>
-          <button className="w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white">
+          <button type="button" className="w-max p-2 shadow-md rounded-xl text-sm text-gray-500 bg-white dark:bg-gray-800 dark:text-gray-300">
             Add a cover image
           </button>
         </Upload>
         <input
-          className="text-4xl font-semibold bg-transparent outline-none"
+          className="text-4xl font-semibold bg-transparent outline-none placeholder-gray-400 dark:placeholder-gray-500"
           type="text"
           placeholder="My Awesome Story"
           name="title"
         />
         <div className="flex items-center gap-4">
-          <label htmlFor="" className="text-sm">
+          <label htmlFor="category" className="text-sm">
             Choose a category:
           </label>
           <select
             name="category"
-            id=""
-            className="p-2 rounded-xl bg-white shadow-md"
+            id="category"
+            className="p-2 rounded-xl bg-white dark:bg-gray-800 shadow-md text-gray-900 dark:text-gray-200"
           >
             <option value="general">General</option>
             <option value="web-design">Web Design</option>
@@ -103,10 +104,11 @@ const Write = () => {
             <option value="marketing">Marketing</option>
           </select>
         </div>
-        <textarea
-          className="p-4 rounded-xl bg-white shadow-md"
+        <input
+          className="text-sm bg-transparent outline-none placeholder-gray-400 dark:placeholder-gray-500"
+          type="text"
+          placeholder="Short description..."
           name="desc"
-          placeholder="A Short Description"
         />
         <div className="flex flex-1 ">
           <div className="flex flex-col gap-2 mr-2">
@@ -117,22 +119,25 @@ const Write = () => {
               ▶️
             </Upload>
           </div>
-          <ReactQuill
-            theme="snow"
-            className="flex-1 rounded-xl bg-white shadow-md"
-            value={value}
-            onChange={setValue}
-            readOnly={0 < progress && progress < 100}
-          />
+          <div className="flex-1 overflow-y-scroll">
+            <ReactQuill
+              className="h-full"
+              theme="snow"
+              value={value}
+              onChange={setValue}
+              placeholder="Tell your story..."
+            />
+          </div>
         </div>
         <button
+          type="submit"
           disabled={mutation.isPending || (0 < progress && progress < 100)}
           className="bg-blue-800 text-white font-medium rounded-xl mt-4 p-2 w-36 disabled:bg-blue-400 disabled:cursor-not-allowed"
         >
           {mutation.isPending ? "Loading..." : "Send"}
         </button>
         {"Progress:" + progress}
-        {/* {mutation.isError && <span>{mutation.error.message}</span>} */}
+        {mutation.isError && <span>{mutation.error.message}</span>}
       </form>
     </div>
   );

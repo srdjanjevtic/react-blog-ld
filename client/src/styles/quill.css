@@ -1,0 +1,62 @@
+/* Dark mode styles for Quill editor */
+.dark .ql-editor {
+  color: #e5e7eb !important; /* text-gray-200 */
+}
+
+.dark .ql-editor.ql-blank::before {
+  color: #6b7280 !important; /* text-gray-500 */
+}
+
+.dark .ql-toolbar {
+  background-color: #1f2937 !important; /* bg-gray-800 */
+  border-color: #374151 !important; /* border-gray-700 */
+}
+
+.dark .ql-container {
+  background-color: #1f2937 !important; /* bg-gray-800 */
+  border-color: #374151 !important; /* border-gray-700 */
+}
+
+.dark .ql-toolbar button,
+.dark .ql-toolbar .ql-picker {
+  color: #e5e7eb !important; /* text-gray-200 */
+}
+
+.dark .ql-toolbar button:hover,
+.dark .ql-toolbar button.ql-active,
+.dark .ql-toolbar .ql-picker-label:hover,
+.dark .ql-toolbar .ql-picker-label.ql-active {
+  color: #60a5fa !important; /* text-blue-400 */
+}
+
+.dark .ql-toolbar button svg path,
+.dark .ql-toolbar button svg line,
+.dark .ql-toolbar button svg rect,
+.dark .ql-toolbar button svg polygon {
+  stroke: #e5e7eb !important; /* text-gray-200 */
+}
+
+.dark .ql-toolbar button:hover svg path,
+.dark .ql-toolbar button.ql-active svg path,
+.dark .ql-toolbar button:hover svg line,
+.dark .ql-toolbar button.ql-active svg line,
+.dark .ql-toolbar button:hover svg rect,
+.dark .ql-toolbar button.ql-active svg rect,
+.dark .ql-toolbar button:hover svg polygon,
+.dark .ql-toolbar button.ql-active svg polygon {
+  stroke: #60a5fa !important; /* text-blue-400 */
+}
+
+.dark .ql-picker-options {
+  background-color: #1f2937 !important; /* bg-gray-800 */
+  border-color: #374151 !important; /* border-gray-700 */
+}
+
+.dark .ql-picker-item {
+  color: #e5e7eb !important; /* text-gray-200 */
+}
+
+.dark .ql-picker-item:hover {
+  color: #60a5fa !important; /* text-blue-400 */
+  background-color: #374151 !important; /* bg-gray-700 */
+}

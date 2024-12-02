@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 
 const Search = () => {
@@ -5,9 +6,12 @@ const Search = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  const searchRef = useRef();
+
   const handleKeyPress = (e) => {
     if (e.key === "Enter") {
       const query = e.target.value;
+      searchRef.current.value = "";
       if (location.pathname === "/posts") {
         setSearchParams({ ...Object.fromEntries(searchParams), search: query });
       } else {
@@ -34,6 +38,7 @@ const Search = () => {
         placeholder="search a post..."
         className="bg-transparent"
         onKeyDown={handleKeyPress}
+        ref={searchRef}
       />
     </div>
   );

@@ -1,0 +1,16 @@
+GET http://localhost:3000/posts
+
+###
+GET http://localhost:3000/posts/title
+
+###
+POST http://localhost:3000/posts
+Content-Type: "application/json"
+
+{
+    "title": "title 2",
+    "slug": "Slug 2",
+    "desc": "Desc 2",
+    "content": "Content 2".
+    "category": "databases"
+}

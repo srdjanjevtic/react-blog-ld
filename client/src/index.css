@@ -2,8 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+::root {
+    --bgc: #e6e6ff;
+}
+
 body {
-    background-color: #e6e6ff;
+    background-color: var(--bgc);
     width: 100%;
     overflow-x: hidden;
     font-family: "Poppins", system-ui, sans-serif;
@@ -18,4 +22,28 @@ body {
     cursor: pointer;
     animation-duration: 18s;
     animation-direction: reverse;
+}
+.cutoff-container {
+    --max-lines: 4;
+    --line-height: 1.7;
+}
+
+.cutoff-container > p {
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: var(--max-lines);
+    -webkit-box-orient: vertical;
+    position: relative;
+}
+
+.cutoff-container > p::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    height: calc(2em * var(--line-height));
+    width: 100%;
+    pointer-events: none;
+    background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
+    z-index: 10;
 }

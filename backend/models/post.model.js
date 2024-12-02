@@ -1,5 +1,6 @@
 import { Schema } from "mongoose";
 import mongoose from "mongoose";
+import Comment from "./comment.model.js";
 
 const postSchema = new Schema(
   {
@@ -42,5 +43,16 @@ const postSchema = new Schema(
   },
   { timestamps: true }
 );
+
+
+// Middleware to handle cascade delete of comments
+postSchema.pre('remove', async function(next) {
+  try {
+    await Comment.deleteMany({ post: this._id });
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 export default mongoose.model("Post", postSchema);

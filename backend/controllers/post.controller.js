@@ -1,6 +1,9 @@
 import ImageKit from "imagekit";
 import Post from "../models/post.model.js";
 import User from "../models/user.model.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 export const getPosts = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
@@ -8,7 +11,7 @@ export const getPosts = async (req, res) => {
 
   const query = {};
 
-  console.log(req.query);
+  // console.log(req.query);
 
   const cat = req.query.cat;
   const author = req.query.author;
@@ -71,10 +74,12 @@ export const getPosts = async (req, res) => {
   const totalPosts = await Post.countDocuments();
   const hasMore = page * limit < totalPosts;
 
-  res.status(200).json({ posts, hasMore });
+  res.status(200).json({ posts, hasMore, totalPosts });
 };
 
 export const getPost = async (req, res) => {
+  console.log("slug", req.params.slug);
+
   const post = await Post.findOne({ slug: req.params.slug }).populate(
     "user",
     "username img"
@@ -85,13 +90,14 @@ export const getPost = async (req, res) => {
 export const createPost = async (req, res) => {
   const clerkUserId = req.auth.userId;
 
-  console.log(req.headers);
+  console.log("headers", req.headers);
 
   if (!clerkUserId) {
     return res.status(401).json("Not authenticated!");
   }
 
   const user = await User.findOne({ clerkUserId });
+  console.log("user", user);
 
   if (!user) {
     return res.status(404).json("User not found!");
@@ -110,8 +116,10 @@ export const createPost = async (req, res) => {
   }
 
   const newPost = new Post({ user: user._id, slug, ...req.body });
-
+  console.log("newPost", newPost);
   const post = await newPost.save();
+  console.log("post", post);
+
   res.status(200).json(post);
 };
 
@@ -183,6 +191,6 @@ const imagekit = new ImageKit({
 });
 
 export const uploadAuth = async (req, res) => {
-  const result = imagekit.getAuthenticationParameters();
+  const result = await imagekit.getAuthenticationParameters();
   res.send(result);
 };
