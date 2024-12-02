@@ -3,8 +3,10 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { useTheme } from "../context/ThemeContext";
 
 const PostMenuActions = ({ post }) => {
+  const {theme} = useTheme();
   const { user } = useUser();
   const { getToken } = useAuth();
   const navigate = useNavigate();
@@ -25,8 +27,14 @@ const PostMenuActions = ({ post }) => {
     },
   });
 
+  // console.log("savedPosts", savedPosts);
+
+
   const isAdmin = user?.publicMetadata?.role === "admin" || false;
-  const isSaved = savedPosts?.data?.some((p) => p === post._id) || false;
+  let isSaved;
+  if(savedPosts?.data) {
+    isSaved = savedPosts?.data?.some((p) => p === post._id) || false;
+  }
 
   const deleteMutation = useMutation({
     mutationFn: async () => {
@@ -129,20 +137,20 @@ const PostMenuActions = ({ post }) => {
           >
             <path
               d="M12 4C10.3 4 9 5.3 9 7v34l15-9 15 9V7c0-1.7-1.3-3-3-3H12z"
-              stroke="black"
+              stroke={theme === "light" ? "gray" : "white"}
               strokeWidth="2"
               fill={
                 saveMutation.isPending
                   ? isSaved
                     ? "none"
-                    : "black"
+                    : "blue"
                   : isSaved
-                  ? "black"
+                  ? "blue"
                   : "none"
               }
             />
           </svg>
-          <span>Save this Post</span>
+          <span>{ isSaved ? "Unsave Post" : "Save Post"}</span>
           {saveMutation.isPending && (
             <span className="text-xs">(in progress)</span>
           )}

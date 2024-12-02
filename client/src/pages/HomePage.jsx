@@ -11,13 +11,13 @@ const HomePage = () => {
       <div className="flex gap-4">
         <Link to="/">Home</Link>
         <span>*</span>
-        <span className="text-sky-800">Blogs and Articles</span>
+        <span className="text-sky-800 dark:text-sky-400">Blogs and Articles</span>
       </div>
       {/* introduction */}
       <div className="flex items-center justify-between">
         {/* titles */}
         <div className="flex flex-col">
-          <h1 className=" text-gray-800 text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
+          <h1 className=" text-gray-800 text-xl md:text-2xl lg:text-3xl font-bold leading-tight dark:text-white">
             Ullamco anim consequat veniam ad
           </h1>
           <p className="mt-8 text-md md:text-lg leading-normal">
@@ -38,11 +38,11 @@ const HomePage = () => {
               fill="none"
               d="M 100, 100 m -75, 0 a 75, 75 0 1, 1 150, 0 a 75, 75 0 1, 1 -150, 0"
             />
-            <text>
-              <textPath href="#circlePath" startOffset="0%">
+            <text >
+              <textPath href="#circlePath" startOffset="0%"  className="dark:fill-slate-200">
                 Write your story
               </textPath>
-              <textPath href="#circlePath" startOffset="50%">
+              <textPath href="#circlePath" startOffset="50%" className="dark:fill-slate-200">
                 Share your idea
               </textPath>
             </text>
@@ -81,7 +81,7 @@ const HomePage = () => {
       <FeaturedPosts />
       {/* post list */}
       <div className="">
-        <h1 className="my-8 text-2xl text-slate-600 ">Recent Posts</h1>
+        <h1 className="my-8 text-2xl text-slate-600 dark:text-slate-400">Recent Posts</h1>
         <PostList />
       </div>
     </div>

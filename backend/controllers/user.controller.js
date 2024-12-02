@@ -9,7 +9,7 @@ export const getUserSavedPosts = async (req, res) => {
 
   const user = await User.findOne({ clerkUserId });
 
-  res.status(200).json(user.savedPosts);
+  res.status(200).json(user?.savedPosts);
 };
 
 export const savePost = async (req, res) => {

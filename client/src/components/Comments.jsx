@@ -48,10 +48,11 @@ const Comments = ({ postId }) => {
     const formData = new FormData(e.target);
 
     const data = {
-      desc: formData.get("desc"),
+      desc: formData.get("desc")
     };
 
     mutation.mutate(data);
+    e.target.reset(); // Clear the form after submission
   };
 
   return (

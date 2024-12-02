@@ -47,3 +47,7 @@ body {
     background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.8));
     z-index: 10;
 }
+
+html.dark .cutoff-container > p::before {
+    background: linear-gradient(to bottom, transparent, rgb(17,24,39, 0.8));
+}

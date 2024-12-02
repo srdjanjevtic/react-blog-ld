@@ -36,7 +36,7 @@ const SinglePostPage = () => {
             <span>Written by</span>
             <Link
               to={`/posts?author=${data.user.username}`}
-              className="text-blue-800"
+              className="text-blue-800 dark:text-slate-200"
               title={`All posts by ${data.user.username}`}
             >
               {data.user.username}
@@ -44,14 +44,14 @@ const SinglePostPage = () => {
             <span>on</span>
             <Link
               to={`/posts?cat=${data.category}`}
-              className="text-blue-800"
+              className="text-blue-800 dark:text-slate-200"
               title={`All posts in ${data.category} category`}
             >
               {data.category}
             </Link>
             <span>{format(data.createdAt)}</span>
           </div>
-          <p className="text-gray-500 font-medium">{data.desc}</p>
+          <p className="text-gray-500 font-medium dark:text-slate-200">{data.desc}</p>
         </div>
         {data.img && (
           <div className="hidden lg:block w-2/5">
@@ -78,16 +78,16 @@ const SinglePostPage = () => {
                   h="48"
                 />
               )}
-              <Link className="text-blue-800">{data.user.username}</Link>
+              <Link className="text-blue-800 dark:text-slate-200">{data.user.username}</Link>
             </div>
             <p className="text-sm text-gray-500">
               Lorem ipsum dolor sit amet consectetur
             </p>
             <div className="flex gap-2">
-              <Link>
+              <Link to="https://facebook.com/" target="_blank">
                 <Image src="facebook.svg" />
               </Link>
-              <Link>
+              <Link to="https://instagram.com/" target="_blank">
                 <Image src="instagram.svg" />
               </Link>
             </div>
